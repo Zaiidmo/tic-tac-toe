@@ -5,7 +5,14 @@ module.exports = {
     fontFamily: {
       'nerko' : 'Nerko One',
     },
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+                '20': 'repeat(20, 1cm)',
+            },
+            gridTemplateRows: {
+                '20': 'repeat(20, 1cm)',
+            },
+    },
   },
   plugins: [],
 }
