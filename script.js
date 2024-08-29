@@ -19,4 +19,31 @@ document.addEventListener("DOMContentLoaded", () => {
     cell.addEventListener("click", handleClick);
     board.appendChild(cell);
   }
+  // Handle click event
+  function handleClick(event) {
+    const cell = event.target;
+    if (cell.textContent) return; // If cell is already filled
+    cell.textContent = currentPlayer;
+    cell.classList.add(currentPlayer.toLowerCase());
+
+    if (checkWin(cell.dataset.index)) {
+      if (currentPlayer === "X") {
+        scoreX++;
+        scoreXElement.textContent = scoreX;
+      } else {
+        scoreO++;
+        scoreOElement.textContent = scoreO;
+      }
+      if (Math.abs(scoreX - scoreO) >= 3) {
+        alert(`Game Over ! Player ${currentPlayer} wins`);
+        resetGame(true);
+      } else { 
+        alert(`One Point to player ${currentPlayer} .. ${currentPlayer} to play again ` );
+      }
+    } else {
+      currentPlayer = currentPlayer === "X" ? "O" : "X";
+    }
+  }
+
+  
 });
