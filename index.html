@@ -5,24 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="./dist/styles.css">
+    <link href="./dist/styles.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap" rel="stylesheet">
-    <style>
-        .cell {
-            width: 1cm;
-            height: 1cm;;
-        }
-    </style>
 </head>
 
-<body class="bg-gray-800 py-8">
-    <h1 class="text-gray-200 text-center font-nerko text-4xl lg:text-8xl">TIC TAC TOE</h1>
-    <div class="flex justify-center items-center min-h-screen">
-        <div id="game-board" class="grid grid-cols-20 grid-rows-20 gap-1">
-            <!-- Cells will be generated here -->
+<body class="bg-gray-500 py-8 flex flex-col items-center">
+    <h1 class="text-gray-200 font-nerko text-4xl lg:text-6xl mb-4">TIC TAC TOE</h1>
+    <div class="flex flex-col gap-2 justify-center items-center mb-4 space-y-4 md:space-y-0 md:space-x-4">
+        <div class="flex gap-2 text-white text-xl">
+            <div class="border-white border px-4 py-2 rounded">Player 1</div>
+            <div class="border-white border px-4 py-2 rounded"><span id="score-x">0</span> : <span id="score-o">0</span></div>
+            <div class="border-white border px-4 py-2 rounded">Player 2</div>
         </div>
+        <button id="reset-button" class="px-4 py-3 bg-red-500 text-white rounded hover:bg-red-600 transition">
+            Reset Game
+        </button>
+    </div>
+    <div id="game-board" class="grid grid-cols-20 grid-rows-20 gap-0">
+        <!-- Cells will be generated here -->
     </div>
     <script src="script.js"></script>
 </body>
