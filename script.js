@@ -1,49 +1,46 @@
 document.addEventListener("DOMContentLoaded", () => {
   const board = document.getElementById("game-board");
-  const resetButton = document.getElementById("reset-button");
-  const scoreXElement = document.getElementById("score-x");
-  const scoreOElement = document.getElementById("score-o");
+  const boardSize = 20; // 20x20 grid
+  let currentPlayer = "X"; // X starts the game
 
-  let currentPlayer = "X";
-  let scoreX = 0;
-  let scoreO = 0;
-  const winLength = 5;
-  const boardSize = 20;
-
-  // Generate cells
+  // Generate the cells
   for (let i = 0; i < boardSize * boardSize; i++) {
     const cell = document.createElement("div");
     cell.className =
-      "cell hover:bg-green-600 bg-gray-400 border border-gray-200 flex items-center justify-center cursor-pointer rounded";
-    cell.dataset.index = i; // Track cells
-    cell.addEventListener("click", handleClick);
+      "cell hover:bg-green-500 bg-gray-400 font-bold border border-gray-200 flex items-center justify-center cursor-pointer rounded";
+    cell.dataset.index = i; // Store the index for reference
+    cell.addEventListener("click", handleCellClick);
     board.appendChild(cell);
   }
-  // Handle click event
-  function handleClick(event) {
-    const cell = event.target;
-    if (cell.textContent) return; // If cell is already filled
-    cell.textContent = currentPlayer;
-    cell.classList.add(currentPlayer.toLowerCase());
 
-    if (checkWin(cell.dataset.index)) {
-      if (currentPlayer === "X") {
-        scoreX++;
-        scoreXElement.textContent = scoreX;
-      } else {
-        scoreO++;
-        scoreOElement.textContent = scoreO;
-      }
-      if (Math.abs(scoreX - scoreO) >= 3) {
-        alert(`Game Over ! Player ${currentPlayer} wins`);
-        resetGame(true);
-      } else { 
-        alert(`One Point to player ${currentPlayer} .. ${currentPlayer} to play again ` );
-      }
-    } else {
-      currentPlayer = currentPlayer === "X" ? "O" : "X";
-    }
+  // Handle cell click event
+  function handleCellClick(event) {
+    const cell = event.target;
+    if (cell.textContent) return; // If the cell is already filled, do nothing
+    cell.textContent = currentPlayer; // Mark the cell with the current player's symbol
+    cell.classList.remove("hover:bg-green-500"); // Remove hover effect after the cell is filled
+    cell.classList.remove("bg-gray-400"); // Remove The cell background
+    cell.classList.add("bg-green-500"); // Remove The cell background
+    // Switch players after each move
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
   }
 
-  
+  //Reset the game
+  function resetGame() {
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach((cell) => {
+      cell.textContent = "";
+      cell.classList.add("hover:bg-green-500");
+      cell.classList.remove("bg-green-500");
+      cell.classList.add("bg-gray-400");
+    });
+    currentPlayer = "X";
+  }
+
+  // Add event listener to the reset button
+  const resetButton = document.getElementById("reset-button");
+  resetButton.addEventListener("click", resetGame);
+
+
 });
+
