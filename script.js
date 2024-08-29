@@ -1,29 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const board = document.getElementById('game-board');
+  const board = document.getElementById("game-board");
+  const resetButton = document.getElementById("reset-button");
+  const scoreXElement = document.getElementById("score-x");
+  const scoreOElement = document.getElementById("score-o");
 
-    // Create cells (20x20)
-    for (let i = 0; i < 400; i++) {
-        const cell = document.createElement('div');
-        cell.className = 'cell hover:bg-green-600 bg-gray-400 border border-gray-200 flex items-center justify-center cursor-pointer rounded';
-        cell.dataset.index = i; // Track cells index
-        cell.addEventListener('click', handleClick);
-        board.appendChild(cell);
-    }
+  let currentPlayer = "X";
+  let scoreX = 0;
+  let scoreO = 0;
+  const winLength = 5;
+  const boardSize = 20;
+
+  // Generate cells
+  for (let i = 0; i < boardSize * boardSize; i++) {
+    const cell = document.createElement("div");
+    cell.className =
+      "cell hover:bg-green-600 bg-gray-400 border border-gray-200 flex items-center justify-center cursor-pointer rounded";
+    cell.dataset.index = i; // Track cells
+    cell.addEventListener("click", handleClick);
+    board.appendChild(cell);
+  }
 });
-let currentPlayer = 'X'; // Start with player X
-
-function handleClick(event) {
-    const cell = event.target;
-    if (cell.classList.contains('x') || cell.classList.contains('o')) return; // Ignore if already clicked
-
-    cell.classList.add(currentPlayer.toLowerCase());
-    cell.textContent = currentPlayer;
-
-    if (checkWin()) {
-        alert(`Player ${currentPlayer} wins!`);
-        resetGame();
-    } else {
-        currentPlayer = currentPlayer === 'X' ? 'O' : 'X'; // Switch player
-        saveGameState();
-    }
-}
