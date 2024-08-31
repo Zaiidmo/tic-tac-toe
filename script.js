@@ -41,4 +41,36 @@ document.addEventListener("DOMContentLoaded", () => {
       currentPlayer = currentPlayer === "X" ? "O" : "X" ;
     }
   }
-})
+
+  // Update the cell and game state
+  function updateCell(cell, row,col) {
+    cell.textContent = currentPlayer;
+    gameState[row] [col] = currentPlayer;
+    cell.classList.add(currentPlayer.toLowerCase());
+  }
+
+  // Checkl for a win in all directions
+  function checkWin(row, col) {
+    return (
+      checkLine(row, col, 0, 1) + checkLine(row, col, 0, -1) >= winLength - 1 || // Horizontal
+      checkLine(row, col, 1, 0) + checkLine(row, col, -1, 0) >= winLength - 1 || // Vertical
+      checkLine(row, col, 1, 1) + checkLine(row, col, -1, -1) >= winLength - 1 || // Diagonal /
+      checkLine(row, col, 1, -1) + checkLine(row, col, -1, 1) >= winLength - 1   // Diagonal \
+    );
+  }
+
+  // Count consecutive symbols in one direction 
+  function checkLine(row, col, rowStep, colStep) {
+    let count = 0 ;
+    let r = row + rowStep ;
+    let c = col + colStep ;
+
+    while (r >= 0 && r < boardSize && c >= 0 && c < boardSize && gameState[r][c] === currentPlayer) {
+      count ++;
+      r += rowStep; 
+      c += colStep;
+    }
+    return count;
+  }
+  
+});
