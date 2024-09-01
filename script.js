@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const boardSize = 20; // 20x20 grid
   const winLength = 5; // 5 in a row to win
   let currentPlayer = "X"; // X starts the game
+  const currentPlayerSpan = document.getElementById("current-player");
 
   // Create a 2D array to represent the game state
   const gameState = Array.from({ length: boardSize }, () => Array(boardSize).fill(null));
@@ -39,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       // Switch player if no win
       currentPlayer = currentPlayer === "X" ? "O" : "X";
+      currentPlayerSpan.textContent = "currentPlayer 's";
     }
   }
 
