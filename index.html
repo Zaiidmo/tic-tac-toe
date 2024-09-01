@@ -22,32 +22,37 @@
     />
   </head>
 
-  <body class="bg-gray-800 py-8">
+  <body class="bg-gray-800 py-2h-screen overflow-y-hidden">
     <div class="flex flex-col items-center">
-      <h1 class="text-gray-200 font-nerko text-4xl lg:text-8xl mb-4">
-        TIC <span class="text-red-700">TAC</span>
-        <span class="text-blue-700">TOE</span>
-      </h1>
       <div
-        class="flex flex-col md:flex-row justify-between gap-4 font-nerko items-center max-w-screen-xl w-screen"
+      class="flex flex-col md:flex-row justify-between gap-4 font-nerko items-center max-w-screen-xl w-screen"
       >
-        <div class="flex flex-col items-center justify-evenly gap-8 w-full">
-          <!-- <h2 class="text-gray-200 font-nerko text-2xl lg:text-4xl mb-4">
-            Player <span id="current-player" class="text-red-700">X</span>
-          </h2> -->
-          <h3
-            id="game-status"
-            class="text-gray-200 font-nerko text-2xl lg:text-4xl"
-          >
-            Player <span id="current-player" class="text-red-700"></span>'s Turn
-          </h3>
-          <button
-            id="reset-button"
-            class="px-4 py-3 bg-red-500 tracking-widest text-2xl text-white rounded hover:bg-red-600 transition h-fit w-full"
-          >
-            Reset Game
-          </button>
+      <div class="flex flex-col justify-evenly h-screen">
+        <div class="flex flex-col">
+          <h1 class="text-gray-200 font-nerko text-4xl lg:text-7xl ">
+            TIC <span class="text-red-700">TAC</span>
+            <span class="text-blue-700">TOE</span>
+          </h1>
+          <span class="text-xs text-right text-white  font-light font-finger">TheVlpha</span>
         </div>
+          <div class="flex flex-col items-center justify-evenly gap-8 w-full">
+            <!-- <h2 class="text-gray-200 font-nerko text-2xl lg:text-4xl mb-4">
+              Player <span id="current-player" class="text-red-700">X</span>
+            </h2> -->
+            <h3
+              id="game-status"
+              class="text-gray-200 font-nerko text-2xl lg:text-4xl"
+            >
+              Player <span id="current-player" class="text-red-700"></span>'s Turn
+            </h3>
+            <button
+              id="reset-button"
+              class="px-4 py-3 bg-red-500 tracking-widest text-2xl text-white rounded hover:bg-red-600 transition h-fit w-full"
+            >
+              Reset Game
+            </button>
+          </div>
+      </div>
         <div
           id="game-board"
           class="grid grid-cols-12 md:grid-cols-20 mt-2 grid-rows-20 gap-1 font-finger text-lg md:text-2xl"
