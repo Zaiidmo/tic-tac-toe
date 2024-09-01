@@ -1,16 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
   const board = document.getElementById("game-board");
   const resetBtn = document.getElementById("reset-button");
+  const currentPlayerSpan = document.getElementById("current-player");
   const boardSize = 20; // 20x20 grid
   const winLength = 5; // 5 in a row to win
   let currentPlayer = "X"; // X starts the game
-  const currentPlayerSpan = document.getElementById("current-player");
 
   // Create a 2D array to represent the game state
   const gameState = Array.from({ length: boardSize }, () => Array(boardSize).fill(null));
 
   // Generate cells on board
   createCells();
+  updateCurrentPlayerDisplay();
 
   // Create cells and add event listeners
   function createCells() {
@@ -40,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       // Switch player if no win
       currentPlayer = currentPlayer === "X" ? "O" : "X";
-      currentPlayerSpan.textContent = "currentPlayer 's";
+      updateCurrentPlayerDisplay();
     }
   }
 
@@ -76,6 +77,11 @@ document.addEventListener("DOMContentLoaded", () => {
       c += colStep;
     }
     return count;
+  }
+
+  //Update Current Player Display 
+  function updateCurrentPlayerDisplay() {
+    currentPlayerSpan.textContent = currentPlayer;
   }
 
   // Reset the game
