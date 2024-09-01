@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const board = document.getElementById("game-board");
   const resetBtn = document.getElementById("reset-button");
   const currentPlayerSpan = document.getElementById("current-player");
+  const winnerSpan = document.getElementById("game-status");
   const boardSize = 20; // 20x20 grid
   const winLength = 5; // 5 in a row to win
   let currentPlayer = "X"; // X starts the game
@@ -36,8 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCell(cell, row, col);
     
     if (checkWin(row, col)) {
-      alert(`Game Over! Player ${currentPlayer} wins!`);
-      resetGame();
+      updateWinnerDisplay();
+      // alert(`Game Over! Player ${currentPlayer} wins!`);
+      // resetGame();
     } else {
       // Switch player if no win
       currentPlayer = currentPlayer === "X" ? "O" : "X";
@@ -82,6 +84,9 @@ document.addEventListener("DOMContentLoaded", () => {
   //Update Current Player Display 
   function updateCurrentPlayerDisplay() {
     currentPlayerSpan.textContent = currentPlayer;
+  }
+  function updateWinnerDisplay(){
+    winnerSpan.textContent = "Player " + currentPlayer + " wins!" ;
   }
 
   // Reset the game
