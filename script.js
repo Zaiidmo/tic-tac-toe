@@ -1,6 +1,7 @@
 document.addEventListener('contextmenu', event => {
   event.preventDefault();
 });
+
 document.addEventListener("DOMContentLoaded", () => {
   const board = document.getElementById("game-board");
   const resetBtn = document.getElementById("reset-button");
@@ -11,14 +12,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const boardSize = 20; // 20x20 grid
   const winLength = 5; // 5 in a row to win
   let currentPlayer = "X"; // X starts the game
-  let scoreX = 0; // Score for player X
-  let scoreO = 0; // Score for player O
   const maxScore = 3; // Maximum score to win the game
+
+  // Initialize scores from localStorage or set defaults
+  let scoreX = parseInt(localStorage.getItem("scoreX")) || 0;
+  let scoreO = parseInt(localStorage.getItem("scoreO")) || 0;
 
   // Create a 2D array to represent the game state
   const gameState = Array.from({ length: boardSize }, () => Array(boardSize).fill(null));
 
-  // Generate cells on board
+  // Generate cells on board and update UI
   createCells();
   updateCurrentPlayerDisplay();
   updateScores();
@@ -44,18 +47,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if (cell.textContent) return; // Do nothing if the cell is already filled
 
     updateCell(cell, row, col);
-    
-    if (checkWin(row, col)) {
-      currentPlayer === "X" ? scoreX++ : scoreO++;
-      updateScores();
 
+    if (checkWin(row, col)) {
+      updateScore(currentPlayer);
       if (Math.abs(scoreX - scoreO) >= maxScore) {
-        showWinAlert(); // Game over alert
+        showWinAlert();
       } else {
-        showRoundOverAlert(); // Round over alert
+        showRoundOverAlert();
       }
     } else if (isBoardFull()) {
-      showDrawAlert(); // Draw alert
+      showDrawAlert();
     } else {
       // Switch player if no win
       currentPlayer = currentPlayer === "X" ? "O" : "X";
@@ -67,10 +68,20 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateCell(cell, row, col) {
     cell.textContent = currentPlayer;
     gameState[row][col] = currentPlayer;
-    cell.classList.remove('cursor-pointer');
-    cell.classList.remove('hover:bg-green-400');
-    cell.classList.add('bg-green-500');
-    cell.classList.add(currentPlayer.toLowerCase());
+    cell.classList.remove('cursor-pointer', 'hover:bg-green-400');
+    cell.classList.add('bg-green-500', currentPlayer.toLowerCase());
+  }
+
+  // Update the score and localStorage
+  function updateScore(winner) {
+    if (winner === "X") {
+      scoreX++;
+    } else {
+      scoreO++;
+    }
+    localStorage.setItem("scoreX", scoreX);
+    localStorage.setItem("scoreO", scoreO);
+    updateScores();
   }
 
   // Check for a win in all directions
@@ -110,12 +121,11 @@ document.addEventListener("DOMContentLoaded", () => {
       icon: 'info',
       showCancelButton: true, 
       confirmButtonText: 'Next Round', 
-      cancelButtonText: 'Play Again', 
-      buttonsStyling: true, 
+      cancelButtonText: 'Play Again'
     }).then((result) => {
       if (result.isConfirmed) {
         resetBoard(); // Reset the board for the next round
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      } else {
         resetGame(); // Reset the game entirely
       }
     });
@@ -169,6 +179,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function resetGame() {
     scoreX = 0;
     scoreO = 0;
+    localStorage.setItem("scoreX", scoreX);
+    localStorage.setItem("scoreO", scoreO);
     updateScores();
     resetBoard();
   }
