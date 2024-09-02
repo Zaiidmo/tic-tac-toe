@@ -108,9 +108,16 @@ document.addEventListener("DOMContentLoaded", () => {
       title: 'Round Over!',
       text: `Player ${currentPlayer} wins this round!`,
       icon: 'info',
-      confirmButtonText: 'Play Next Round'
-    }).then(() => {
-      resetBoard(); // Reset the board for the next round
+      showCancelButton: true, 
+      confirmButtonText: 'Next Round', 
+      cancelButtonText: 'Play Again', 
+      buttonsStyling: true, 
+    }).then((result) => {
+      if (result.isConfirmed) {
+        resetBoard(); // Reset the board for the next round
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        resetGame(); // Reset the game entirely
+      }
     });
   }
 
