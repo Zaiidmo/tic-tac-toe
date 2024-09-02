@@ -1,3 +1,6 @@
+document.addEventListener('contextmenu', event => {
+  event.preventDefault();
+});
 document.addEventListener("DOMContentLoaded", () => {
   const board = document.getElementById("game-board");
   const resetBtn = document.getElementById("reset-button");
