@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const board = document.getElementById("game-board");
   const resetBtn = document.getElementById("reset-button");
   const currentPlayerSpan = document.getElementById("current-player");
-  const winnerSpan = document.getElementById("game-status");
   const boardSize = 20; // 20x20 grid
   const winLength = 5; // 5 in a row to win
   let currentPlayer = "X"; // X starts the game
@@ -37,9 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCell(cell, row, col);
     
     if (checkWin(row, col)) {
-      updateWinnerDisplay();
-      // alert(`Game Over! Player ${currentPlayer} wins!`);
-      // resetGame();
+      showWinAlert(); // Use SweetAlert2 to show the winning alert
     } else {
       // Switch player if no win
       currentPlayer = currentPlayer === "X" ? "O" : "X";
@@ -81,12 +78,21 @@ document.addEventListener("DOMContentLoaded", () => {
     return count;
   }
 
-  //Update Current Player Display 
+  // Display the SweetAlert2 popup when a player wins
+  function showWinAlert() {
+    Swal.fire({
+      title: 'Game Over!',
+      text: `Player ${currentPlayer} wins!`,
+      icon: 'success',
+      confirmButtonText: 'Play Again'
+    }).then(() => {
+      resetGame(); // Reset the game after the alert
+    });
+  }
+
+  // Update Current Player Display 
   function updateCurrentPlayerDisplay() {
     currentPlayerSpan.textContent = currentPlayer;
-  }
-  function updateWinnerDisplay(){
-    winnerSpan.textContent = "Player " + currentPlayer + " wins!" ;
   }
 
   // Reset the game
@@ -95,6 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     currentPlayer = "X"; // Reset to Player X
     board.innerHTML = ""; // Clear the board
     createCells(); // Regenerate the cells
+    updateCurrentPlayerDisplay();
   }
 
   // Attach event listener to reset button
