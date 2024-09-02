@@ -1,111 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tic Tac Toe</title>
-    <link href="./dist/styles.css" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link
-      href="data:image/x-icon;base64,AAABAAEAEBAAAAAAAABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAEQD/AP8AVQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAACAAAAAAAAAAAAAAIAAAAAAgAAAAACAgIAAAACAAAAAAIAAAAAAAACAgICAgAAAAIAAAAAAAABAQEAAAICAgICAgAAAAABAAAAAQACAAAAAgICAgICAQAAAAEAAgAAAAIAAAAAAAABAQEAAgAAAAACAAAAAAACAgICAgIAAAACAgAAAAAAAAAAAAACAgICAgAAAAAAAAAAAAAAAgAAAAICAgICAgIAAAAAAgAAAAACAAEAAAABAAAAAAIAAAAAAgAAAQABAAAAAAACAAAAAAIAAAABAAAAAAAAAgAAAAACAAABAAEAAAAAAAIAAAAAAgABAAAAAf3vAAD97wAAHe8AAMHfAACMDwAAdcAAAHXfAACL3wAAA58AAPg/AAD7gAAA964AAPe1AAD3uwAA97UAAPeuAAA="
-      rel="icon"
-      type="image/x-icon"
-    />
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic Tac Toe</title>
 
-  <body class="bg-gray-800 py-2h-screen lg:overflow-y-hidden">
-    <div class="flex flex-col items-center">
-      <div
-        class="flex flex-col lg:flex-row justify-between gap-4 font-nerko items-center max-w-screen-xl w-screen"
-      >
-        <div
-          class="flex lg:flex-col justify-evenly lg:h-screen w-full items-center"
-        >
-          <div class="flex flex-col">
-            <h1 class="text-gray-200 font-nerko text-4xl lg:text-7xl">
-              TIC <span class="text-red-700">TAC</span>
-              <span class="text-blue-700">TOE</span>
-            </h1>
-            <a
-              href="https://vlpha.vercel.app"
-              target="_blank"
-              class="w-fit self-end inline-block text-right"
-              ><span
-                class="text-xs text-right text-white font-light font-finger"
-                >TheVlpha</span
-              ></a
-            >
-          </div>
-          <div class="flex justify-evenly gap-4 border rounded-2xl px-4 py-4 w-fit">
-            <div class="flex flex-col items-center justify-evenly rounded-xl border p-2">
-              <h3
-                class="text-gray-200 font-nerko text-2xl lg:text-4xl"
-              >
-                Player <span class="text-red-700">X</span>
-              </h3>
-              <div class="flex flex-col items-center gap-4">
-                <p
-                  id="scoreX"
-                  class="text-red-700 font-finger text-8xl"
-                >
-                  0
-                </p>
-              </div>
-            </div>
-            
-            <div class="flex flex-col items-center justify-evenly rounded-xl border p-2">
-              <h3
-                class="text-gray-200 font-nerko text-2xl lg:text-4xl"
-              >
-                Player <span class="text-blue-700">O</span>
-              </h3>
-              <div class="flex flex-col items-center gap-4">
-                <p
-                  id="scoreO"
-                  class="text-blue-700 font-finger text-8xl"
-                >
-                  0
-                </p>
-              </div>
-            </div>
-            
-          </div>
-          <div
-            class="flex flex-col items-center justify-evenly gap-8 lg:w-full"
-          >
-            <h3
-              id="game-status"
-              class="text-gray-200 font-nerko text-2xl lg:text-4xl"
-            >
-              Player <span id="current-player" class="text-red-700"></span>'s
-              Turn
+  <!-- CSS Styles -->
+  <link href="./dist/styles.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nerko+One&family=Finger+Paint&display=swap" rel="stylesheet">
+
+  <!-- SweetAlert2 for Alerts -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAAAAABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAEQD/AP8AVQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAACAAAAAAAAAAAAAAIAAAAAAgAAAAACAgIAAAACAAAAAAIAAAAAAAACAgICAgAAAAIAAAAAAAABAQEAAAICAgICAgAAAAABAAAAAQACAAAAAgICAgICAQAAAAEAAgAAAAIAAAAAAAABAQEAAgAAAAACAAAAAAACAgICAgIAAAACAgAAAAAAAAAAAAACAgICAgAAAAAAAAAAAAAAAgAAAAICAgICAgIAAAAAAgAAAAACAAEAAAABAAAAAAIAAAAAAgAAAQABAAAAAAACAAAAAAIAAAABAAAAAAAAAgAAAAACAAABAAEAAAAAAAIAAAAAAgABAAAAAf3vAAD97wAAHe8AAMHfAACMDwAAdcAAAHXfAACL3wAAA58AAPg/AAD7gAAA964AAPe1AAD3uwAA97UAAPeuAAA=">
+</head>
+
+<body class="bg-gray-800 py-2h-screen lg:overflow-y-hidden">
+  <div class="flex flex-col items-center">
+    <!-- Main Content -->
+    <div class="flex flex-col lg:flex-row justify-between gap-4 font-nerko items-center max-w-screen-xl w-screen">
+      <!-- Header -->
+      <div class="flex lg:flex-col justify-evenly lg:h-screen w-full items-center">
+        <div class="flex flex-col">
+          <h1 class="text-gray-200 font-nerko text-4xl lg:text-7xl">
+            TIC <span class="text-red-700">TAC</span> <span class="text-blue-700">TOE</span>
+          </h1>
+          <a href="https://vlpha.vercel.app" target="_blank" class="w-fit self-end inline-block text-right">
+            <span class="text-xs text-right text-white font-light font-finger">TheVlpha</span>
+          </a>
+        </div>
+
+        <!-- Score Display -->
+        <div class="flex justify-evenly gap-4 border rounded-2xl px-4 py-4 w-fit">
+          <div class="flex flex-col items-center justify-evenly rounded-xl border p-2">
+            <h3 class="text-gray-200 font-nerko text-2xl lg:text-4xl">
+              Player <span class="text-red-700">X</span>
             </h3>
-            <button
-              id="reset-button"
-              class="px-4 py-3 bg-red-500 tracking-widest text-2xl text-white rounded hover:bg-red-600 transition h-fit w-full"
-            >
-              Reset Game
-            </button>
+            <p id="scoreX" class="text-red-700 font-finger text-8xl">0</p>
+          </div>
+          <div class="flex flex-col items-center justify-evenly rounded-xl border p-2">
+            <h3 class="text-gray-200 font-nerko text-2xl lg:text-4xl">
+              Player <span class="text-blue-700">O</span>
+            </h3>
+            <p id="scoreO" class="text-blue-700 font-finger text-8xl">0</p>
           </div>
         </div>
-        <div
-          id="game-board"
-          class="grid grid-cols-12 md:grid-cols-20 mt-2 grid-rows-20 gap-1 font-finger text-lg md:text-2xl"
-        >
-          <!-- Game Cells  -->
+
+        <!-- Game Status and Reset Button -->
+        <div class="flex flex-col items-center justify-evenly gap-8 lg:w-full">
+          <h3 id="game-status" class="text-gray-200 font-nerko text-2xl lg:text-4xl">
+            Player <span id="current-player" class="text-red-700"></span>'s Turn
+          </h3>
+          <button id="reset-button" class="px-4 py-3 bg-red-500 tracking-widest text-2xl text-white rounded hover:bg-red-600 transition h-fit w-full">
+            Reset Game
+          </button>
         </div>
       </div>
+
+      <!-- Game Board -->
+      <div id="game-board" class="grid grid-cols-12 md:grid-cols-20 mt-2 grid-rows-20 gap-1 font-finger text-lg md:text-2xl">
+        <!-- Game Cells will be generated here by JavaScript -->
+      </div>
     </div>
-    <script src="script.js"></script>
-  </body>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
 </html>
