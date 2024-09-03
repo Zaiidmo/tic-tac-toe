@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Generate cells on board and update UI
   createCells();
   updateCurrentPlayerDisplay();
-  updateScores();
+  updateScoreSpans();
 
   // Create cells and add event listeners
   function createCells() {
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     localStorage.setItem("scoreX", scoreX);
     localStorage.setItem("scoreO", scoreO);
-    updateScores();
+    updateScoreSpans();
   }
 
   // Check for a win in all directions
@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Update scores on the scoreboard
-  function updateScores() {
+  function updateScoreSpans() {
     scoreXElement.textContent = scoreX;
     scoreOElement.textContent = scoreO;
   }
@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
     scoreO = 0;
     localStorage.setItem("scoreX", scoreX);
     localStorage.setItem("scoreO", scoreO);
-    updateScores();
+    updateScoreSpans();
     resetBoard();
   }
 
